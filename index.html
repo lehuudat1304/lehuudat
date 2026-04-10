@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Profile - Lê Hữu Đạt</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at top, #4b6cb7 0%, #182848 45%, #0b1220 100%);
+            color: #f8f9ff;
+            font-family: "Segoe UI", Roboto, sans-serif;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+        }
+        .card {
+            width: 100%;
+            padding: 32px;
+            border-radius: 32px;
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+            backdrop-filter: blur(14px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 35%);
+            pointer-events: none;
+        }
+        .avatar-wrap {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            border: 6px solid rgba(255,255,255,0.35);
+            margin: 0 auto 22px;
+            overflow: hidden;
+            box-shadow: 0 0 0 12px rgba(255,255,255,0.08);
+            background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+        }
+        .avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        h1 {
+            margin: 0 0 8px;
+            font-size: 2rem;
+            letter-spacing: 0.02em;
+        }
+        .role {
+            margin: 0;
+            color: #d8e3ff;
+            font-size: 1rem;
+        }
+        .links {
+            margin: 28px 0 18px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .links a {
+            padding: 12px 18px;
+            border-radius: 999px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: transform .2s, box-shadow .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .links a.facebook {
+            background: #1877F2;
+        }
+        .links a.facebook:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(24, 119, 242, 0.4);
+        }
+        .links a.zalo {
+            background: #0084FF;
+        }
+        .links a.zalo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 132, 255, 0.4);
+        }
+        .links a.linkedin {
+            background: #0A66C2;
+        }
+        .links a.linkedin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(10, 102, 194, 0.4);
+        }
+        #gift-btn {
+            margin-top: 12px;
+            width: 100%;
+            padding: 14px 0;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ff6b81, #ffca6b);
+            color: #10203f;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: .02em;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+        }
+        #gift-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 30px rgba(255,107,129,0.25);
+        }
+        .message-form {
+            width: 100%;
+            padding: 32px;
+            border-radius: 32px;
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+            backdrop-filter: blur(14px);
+            position: relative;
+        }
+        .message-form::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 35%);
+            pointer-events: none;
+            border-radius: 32px;
+        }
+        .message-form h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            transition: border-color .2s, background .2s;
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.15);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+        #send-btn {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+        }
+        #send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
+        }
+        #send-btn:active {
+            transform: translateY(0);
+        }
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #4ade80;
+            margin-top: 16px;
+            font-weight: 600;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="avatar-wrap">
+                <img src="avatar.png" alt="Ảnh đại diện">
+            </div>
+            <h1>Lê Hữu Đạt</h1>
+            <p class="role">Nhân viên tại JOYWORK</p>
+            <div class="links">
+                <a href="https://www.facebook.com/le.huu.at.863784/" target="_blank" class="facebook">📘 Facebook</a>
+                <a href="https://zalo.me/0966624764" target="_blank" class="zalo">💬 Zalo</a>
+                <a href="https://vn.linkedin.com/" target="_blank" class="linkedin">💼 LinkedIn</a>
+            </div>
+            <button id="gift-btn">Tặng quà</button>
+        </div>
+
+        <div class="message-form">
+            <h2>✉️ Để lại lời nhắn</h2>
+            <form id="messageForm">
+                <div class="form-group">
+                    <label for="senderName">Tên người gửi</label>
+                    <input type="text" id="senderName" placeholder="Nhập tên của bạn" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Lời nhắn</label>
+                    <textarea id="message" placeholder="Viết lời nhắn của bạn..." required></textarea>
+                </div>
+                <button type="submit" id="send-btn">Gửi</button>
+                <div class="success-message" id="successMsg">✓ Lời nhắn đã được gửi!</div>
+            </form>
+        </div>
+    </div>
+
+    <canvas id="fireworks"></canvas>
+    <script>
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        let particles = [];
+
+        function createParticle(x, y) {
+            for (let burst = 0; burst < 5; burst++) {
+                const hue = Math.random() * 360;
+                for (let i = 0; i < 80; i++) {
+                    const angle = (Math.PI * 2 * i) / 80;
+                    const speed = 5 + Math.random() * 12;
+                    particles.push({
+                        x,
+                        y,
+                        vx: Math.cos(angle) * speed,
+                        vy: Math.sin(angle) * speed - 2,
+                        life: 100 + Math.random() * 50,
+                        size: 2 + Math.random() * 5,
+                        hue
+                    });
+                }
+            }
+        }
+
+        function update() {
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.15;
+                p.vx *= 0.98;
+                p.life--;
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.fillStyle = `hsla(${p.hue}, 100%, 60%, ${Math.min(1, p.life / 50)})`;
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function loop() {
+            update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+        loop();
+
+        document.getElementById('gift-btn').addEventListener('click', e => {
+            createParticle(e.clientX, e.clientY);
+            createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+            createParticle(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+        });
+
+        async function sendToTelegram(message) {
+            const botToken = '8610484427:AAG36phlNHormfj8kvAt3RWPk-DqhB1VShA';
+            const chatId = '5727709437';
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+                const data = await response.json();
+                if (data.ok) {
+                    alert('✓ Tin nhắn đã gửi đến Telegram!');
+                } else {
+                    alert('❌ Lỗi gửi Telegram: ' + data.description);
+                    console.error('Lỗi gửi Telegram:', data);
+                }
+            } catch (error) {
+                alert('❌ Lỗi kết nối: ' + error.message);
+                console.error('Lỗi kết nối Telegram:', error);
+            }
+        }
+
+        document.getElementById('messageForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const senderName = document.getElementById('senderName').value;
+            const message = document.getElementById('message').value;
+            
+            console.log('Tên:', senderName);
+            console.log('Lời nhắn:', message);
+            
+            let messages = JSON.parse(localStorage.getItem('messages')) || [];
+            messages.push({
+                name: senderName,
+                message: message,
+                time: new Date().toLocaleString('vi-VN')
+            });
+            localStorage.setItem('messages', JSON.stringify(messages));
+            
+            const telegramMessage = `📩 <b>Lời nhắn mới từ Digital Profile</b>\n\n👤 <b>Tên:</b> ${senderName}\n💬 <b>Lời nhắn:</b> ${message}\n🕒 <b>Thời gian:</b> ${new Date().toLocaleString('vi-VN')}`;
+            await sendToTelegram(telegramMessage);
+            
+            const successMsg = document.getElementById('successMsg');
+            successMsg.style.display = 'block';
+            
+            document.getElementById('senderName').value = '';
+            document.getElementById('message').value = '';
+            
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
